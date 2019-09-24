@@ -9,8 +9,46 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var inCenter = true
+    @State var inCenter2 = true
+    
     var body: some View {
-        Text("Hello World")
+        ZStack {
+            Circle()
+                .frame(width: 100, height: 100)
+                .foregroundColor(Color.purple.opacity(0.5))
+                .offset(x: inCenter ? 0 : 50)
+                .rotationEffect(Angle(degrees: inCenter2 ? 0 : 360))
+            
+            Circle()
+                .frame(width: 100, height: 100)
+                .foregroundColor(Color.purple.opacity(0.5))
+                .offset(x: inCenter ? 0 : -50)
+                .rotationEffect(Angle(degrees: inCenter2 ? 0 : 360))
+            
+            Circle()
+                .frame(width: 100, height: 100)
+                .foregroundColor(Color.purple.opacity(0.5))
+                .offset(y: inCenter ? 0 : 50)
+                .rotationEffect(Angle(degrees: inCenter2 ? 0 : 360))
+            
+            Circle()
+                .frame(width: 100, height: 100)
+                .foregroundColor(Color.purple.opacity(0.5))
+                .offset(y: inCenter ? 0 : -50)
+                .rotationEffect(Angle(degrees: inCenter2 ? 0 : 360))
+        }
+        
+        .onAppear() {
+            let animation = Animation.linear(duration: 3)
+            withAnimation(animation.repeatForever(autoreverses: true)) {
+                self.inCenter = false
+            }
+            withAnimation(animation.repeatForever(autoreverses: false)) {
+                self.inCenter2 = false
+            }
+        }
     }
 }
 
